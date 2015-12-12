@@ -17,4 +17,12 @@ sudo mv vendor /var/www/html &> /tmp/movecomposer.txt
 
 sudo php /var/www/html/setup.php &> /tmp/database-setup.txt
 
-echo "Hello!" > /tmp/hello.txt 
+echo "Hello!" > /tmp/hello.txt
+
+ARN=(`aws sns create-topic --name itmo444mp2`)
+
+aws sns set-topic-attributes --topic-arn $ARN --attribute-name DisplayName --attribute-value itmo444mp2
+
+aws sns subscribe --topic-arn $ARN --protocol sms --notification-endpoint 17085439859
+
+aws sns publish --topic-arn $ARN --message "Hello Grant"  
